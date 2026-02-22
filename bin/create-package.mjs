@@ -48,6 +48,20 @@ if (!check('gh auth status')) {
   process.exit(1)
 }
 
+import { existsSync } from 'node:fs'
+
+if (existsSync(name)) {
+  console.error(`Error: Directory '${name}' already exists.`)
+  process.exit(1)
+}
+
+if (check(`gh repo view ${GITHUB_ORG}/${name}`)) {
+  console.error(
+    `Error: Repository ${GITHUB_ORG}/${name} already exists on GitHub.`,
+  )
+  process.exit(1)
+}
+
 // ── Create repo from template ────────────────────────────────────
 
 console.log(`Creating ${GITHUB_ORG}/${name} from template...`)
