@@ -1,6 +1,6 @@
 {
   "name": "@coloop-ai/create-package",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Scaffold a new @coloop-ai TypeScript package from the template.",
   "license": "MIT",
   "repository": {
