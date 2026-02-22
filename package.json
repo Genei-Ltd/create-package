@@ -1,0 +1,24 @@
+{
+  "name": "@coloop-ai/create-package",
+  "version": "0.1.0",
+  "description": "Scaffold a new @coloop-ai TypeScript package from the template.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Genei-Ltd/create-package.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Genei-Ltd/create-package/issues"
+  },
+  "homepage": "https://github.com/Genei-Ltd/create-package#readme",
+  "bin": "./bin/create-package",
+  "files": [
+    "bin"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

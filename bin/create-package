@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# ── @coloop-ai/create-package ────────────────────────────────────
+# Scaffolds a new @coloop-ai TypeScript package from the template.
+#
+# Usage:
+#   bun create @coloop-ai/package <name> ["description"]
+#   npx @coloop-ai/create-package <name> ["description"]
+#
+# Example:
+#   bun create @coloop-ai/package my-cool-lib "A really cool library"
+# ──────────────────────────────────────────────────────────────────
+
+TEMPLATE_REPO="Genei-Ltd/ts-package-template"
+GITHUB_ORG="Genei-Ltd"
+
+# ── Parse arguments ───────────────────────────────────────────────
+
+if [ $# -lt 1 ]; then
+  echo "Usage: bun create @coloop-ai/package <name> [\"description\"]"
+  echo ""
+  echo "Example: bun create @coloop-ai/package my-cool-lib \"A really cool library\""
+  exit 1
+fi
+
+PACKAGE_NAME="$1"
+DESCRIPTION="${2:-A TypeScript package published to @coloop-ai}"
+
+# ── Preflight checks ─────────────────────────────────────────────
+
+for cmd in gh git bun; do
+  if ! command -v "$cmd" &> /dev/null; then
+    echo "Error: '${cmd}' is required but not installed."
+    exit 1
+  fi
+done
+
+if ! gh auth status &> /dev/null; then
+  echo "Error: GitHub CLI is not authenticated. Run 'gh auth login' first."
+  exit 1
+fi
+
+if [ -d "$PACKAGE_NAME" ]; then
+  echo "Error: Directory '${PACKAGE_NAME}' already exists."
+  exit 1
+fi
+
+# ── Create repo from template ────────────────────────────────────
+
+echo "Creating ${GITHUB_ORG}/${PACKAGE_NAME} from template..."
+gh repo create "${GITHUB_ORG}/${PACKAGE_NAME}" \
+  --template "$TEMPLATE_REPO" \
+  --clone \
+  --public
+
+cd "$PACKAGE_NAME"
+
+# ── Run init.sh ──────────────────────────────────────────────────
+
+./init.sh "$PACKAGE_NAME" "$DESCRIPTION"
+
+# ── Push ──────────────────────────────────────────────────────────
+
+echo "Pushing to origin..."
+git push -u origin main --force
+
+echo ""
+echo "Your package @coloop-ai/${PACKAGE_NAME} is live at:"
+echo "  https://github.com/${GITHUB_ORG}/${PACKAGE_NAME}"
