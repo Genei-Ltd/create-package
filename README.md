@@ -5,7 +5,7 @@ Scaffold a new @coloop-ai TypeScript package from the [template](https://github.
 ## Usage
 
 ```bash
-bun create @coloop-ai/package my-cool-lib "A really cool library"
+pnpm create @coloop-ai/package my-cool-lib "A really cool library"
 ```
 
 Or with npx:
@@ -16,7 +16,7 @@ npx @coloop-ai/create-package my-cool-lib "A really cool library"
 
 ## Prerequisites
 
-- [Bun](https://bun.sh)
+- [pnpm](https://pnpm.io)
 - [GitHub CLI](https://cli.github.com) (`gh auth login`)
 - Write access to the [Genei-Ltd](https://github.com/Genei-Ltd) GitHub org
 

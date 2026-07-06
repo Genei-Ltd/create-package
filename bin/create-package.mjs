@@ -24,17 +24,17 @@ const [name, description = 'A TypeScript package published to @coloop-ai'] =
   process.argv.slice(2)
 
 if (!name) {
-  console.log('Usage: bun create @coloop-ai/package <name> ["description"]')
+  console.log('Usage: pnpm create @coloop-ai/package <name> ["description"]')
   console.log('')
   console.log(
-    'Example: bun create @coloop-ai/package my-cool-lib "A really cool library"',
+    'Example: pnpm create @coloop-ai/package my-cool-lib "A really cool library"',
   )
   process.exit(1)
 }
 
 // ── Preflight checks ─────────────────────────────────────────────
 
-for (const cmd of ['gh', 'git', 'bun']) {
+for (const cmd of ['gh', 'git', 'pnpm']) {
   if (!check(`command -v ${cmd}`)) {
     console.error(`Error: '${cmd}' is required but not installed.`)
     process.exit(1)
